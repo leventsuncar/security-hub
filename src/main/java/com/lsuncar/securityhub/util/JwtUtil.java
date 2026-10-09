@@ -2,7 +2,6 @@ package com.lsuncar.securityhub.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +16,7 @@ import java.util.function.Function;
 @Component
 public class JwtUtil
 {
-	@Value ("${jwt.token}")
+	@Value ("${jwt.secret}")
 	private String key;
 
 	public String extractUsername(String token) {
@@ -30,8 +29,8 @@ public class JwtUtil
 				.setClaims(extraClaims)
 				.setSubject(userDetails.getUsername())
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 25)) //10 dk todo koşula bağla
-				.signWith(getSigningKey(), SignatureAlgorithm.HS256)
+				.setExpiration( new Date( System.currentTimeMillis() + 1000 * 60 * 25 ) ) // 25 dk, todo: koşula bağla
+				.signWith( getSigningKey() )
 				.compact();
 	}
 
@@ -59,11 +58,11 @@ public class JwtUtil
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 	}
 
-	private boolean isTokenExpired(String token) {
-		return extractExpriration(token).before(new Date());
+	private boolean isTokenExpired( String token ) {
+		return extractExpiration( token ).before( new Date() );
 	}
 
-	private Date extractExpriration(String token) {
+	private Date extractExpiration( String token ) {
 		return extractClaim(token, Claims::getExpiration);
 	}
 

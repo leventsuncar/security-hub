@@ -2,7 +2,7 @@ package com.lsuncar.securityhub.enumerated;
 
 public enum AuthProvider
 {
-	LOCAL,
+	EMAIL,
 	GOOGLE,
 	APPLE
 }

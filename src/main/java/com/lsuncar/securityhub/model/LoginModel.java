@@ -1,5 +1,6 @@
 package com.lsuncar.securityhub.model;
 
-public class LoginModel
-{
+import lombok.Data;
+
+public record LoginModel( String username, String password ) {
 }
