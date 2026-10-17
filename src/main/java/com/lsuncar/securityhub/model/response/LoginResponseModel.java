@@ -1,4 +1,4 @@
-package com.lsuncar.securityhub.model;
+package com.lsuncar.securityhub.model.response;
 
 import lombok.Data;
 

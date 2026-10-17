@@ -1,4 +1,4 @@
-package com.lsuncar.securityhub.model.results;
+package com.lsuncar.securityhub.model.response.results;
 
 public class ErrorResult extends  Result
 {

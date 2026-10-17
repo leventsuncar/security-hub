@@ -1,7 +1,8 @@
 package com.lsuncar.securityhub.controller;
 
-import com.lsuncar.securityhub.model.LoginModel;
-import com.lsuncar.securityhub.model.LoginResponseModel;
+import com.lsuncar.securityhub.model.request.LoginModel;
+import com.lsuncar.securityhub.model.request.RegisterRequestModel;
+import com.lsuncar.securityhub.model.response.LoginResponseModel;
 import com.lsuncar.securityhub.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,12 +23,21 @@ public class AuthController
 	@PostMapping("/login")
 	public ResponseEntity<?> login ( @RequestBody LoginModel loginModel ) {
 
-		LoginResponseModel loginResponseModel = authService.login(loginModel.username(), loginModel.password());
+		LoginResponseModel loginResponseModel = authService.login(loginModel);
 
 
 
 		return ResponseEntity.ok().body("Login successful");
 	}
 
+	@PostMapping("/register")
+	public ResponseEntity<?> register ( @RequestBody RegisterRequestModel registerRequestModel ) {
+
+		LoginResponseModel loginResponseModel = authService.register(registerRequestModel);
+
+
+
+		return ResponseEntity.ok().body(loginResponseModel);
+	}
 
 }
